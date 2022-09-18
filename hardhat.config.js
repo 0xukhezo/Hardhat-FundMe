@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const GOERLI_URL_RPC = process.env.URL_RPC_GOERLI;
 const LOCALHOST_URL_RPC = process.env.URL_RPC_LOCALHOST;
-// const PRIVATE_KEY_ACCOUNT_GOERLI = process.env.PRIVATE_KEY_GOERLI;
+const PRIVATE_KEY_ACCOUNT_GOERLI = process.env.PRIVATE_KEY_GOERLI;
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API;
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY;
 
@@ -29,8 +29,9 @@ module.exports = {
   networks: {
     goerli: {
       url: GOERLI_URL_RPC,
-      accounts: [],
+      accounts: [PRIVATE_KEY_ACCOUNT_GOERLI],
       chainId: 5,
+      blockConfirmations: 6,
     },
     localhost: {
       url: LOCALHOST_URL_RPC,

@@ -9,7 +9,7 @@ const networkConfig = {
   },
 };
 
-const deploymentNetworks = ["hardhat", "localhost"];
+const developmentChains = ["hardhat", "localhost"];
 
 //Arguments for the MockV3Aggregator
 const DECIMALS = 8;
@@ -17,7 +17,7 @@ const INICIAL_ANSWER = 200000000000;
 
 module.exports = {
   networkConfig,
-  deploymentNetworks,
+  developmentChains,
   DECIMALS,
   INICIAL_ANSWER,
 };
