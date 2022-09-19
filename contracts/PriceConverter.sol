@@ -4,6 +4,12 @@ pragma solidity ^0.8.0;
 
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
+/** @title A contract for price converter
+ * @author Alvaro Teran
+ * @notice This contract is a demo of a simple funding contract
+ * @dev This implements price feeds as our library
+ */
+
 library PriceConverter {
     function getPrice(AggregatorV3Interface _priceFeed)
         internal
