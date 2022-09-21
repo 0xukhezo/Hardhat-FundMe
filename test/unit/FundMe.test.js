@@ -26,7 +26,7 @@ describe("FundMe", function () {
 
   describe("constructor", function () {
     it("Test 01 - sets the aggregator addresses correctly", async () => {
-      const response = await fundMe.priceFeed();
+      const response = await fundMe.getPriceFeed();
       assert.equal(response, parseInt(mockV3Aggregator.address));
     });
   });
@@ -37,12 +37,12 @@ describe("FundMe", function () {
     });
     it("Test 03 - updated the amount funded data structure", async () => {
       await fundMe.fund({ value: sendValue });
-      const response = await fundMe.addressToAmountFunded(deployer);
+      const response = await fundMe.getAddressToAmmountFunded(deployer);
       assert.equal(response.toString(), sendValue.toString());
     });
     it("Test 04 - add funders to funders array", async () => {
       await fundMe.fund({ value: sendValue });
-      const response = await fundMe.funders(0);
+      const response = await fundMe.getFunders(0);
       4;
       assert.equal(response, deployer);
     });
@@ -108,10 +108,10 @@ describe("FundMe", function () {
         endingDeployerBalance.add(gasCost).toString(),
         startingDeployerBalance.add(startingFundMeBalance).toString()
       );
-      await expect(fundMe.funders(0)).to.be.reverted;
+      await expect(fundMe.getFunders(0)).to.be.reverted;
       for (let i = 1; i < 6; i++) {
         assert.equal(
-          await fundMe.addressToAmountFunded(accounts[i].address),
+          await fundMe.getAddressToAmmountFunded(accounts[i].address),
           0
         );
       }
