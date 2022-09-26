@@ -28,13 +28,15 @@ module.exports = {
   defaultNetwork: "hardhat",
   networks: {
     goerli: {
-      url: GOERLI_URL_RPC,
-      accounts: [PRIVATE_KEY_ACCOUNT_GOERLI],
+      url:
+        GOERLI_URL_RPC ||
+        "https://goerli.infura.io/v3/e3618e50f490400db605c2fe0bedf816",
+      // accounts: [PRIVATE_KEY_ACCOUNT_GOERLI],
       chainId: 5,
       blockConfirmations: 6,
     },
     localhost: {
-      url: LOCALHOST_URL_RPC,
+      url: LOCALHOST_URL_RPC || "http://127.0.0.1:8545",
       chainId: 31337,
     },
   },
