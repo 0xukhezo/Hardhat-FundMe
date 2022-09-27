@@ -7,7 +7,7 @@ import "./App.css"
 
 function App() {
   const [connectedState, setConnectedState] = useState("Connet Wallet")
-
+  const [ethAmount, setEthAmount] = useState("")
   const connect = async () => {
     if (window.ethereum) {
       await window.ethereum.request({ method: "eth_requestAccounts" })
@@ -21,7 +21,7 @@ function App() {
       setConnectedState("Please install Metamask")
     }
   }
-  const fund = async (ethAmount) => {
+  const fund = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
     const contract = new ethers.Contract(
@@ -52,11 +52,29 @@ function App() {
     // return Promise()
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault()
+  }
+
+  const handleChange = (event) => {
+    setEthAmount(event.target.value)
+  }
   return (
     <>
       <div className="App">Web Fund Me</div>
       <button onClick={connect}>{connectedState}</button>
-      <button onClick={fund}>Fund to Balance</button>
+      <form onSubmit={handleSubmit}>
+        <lable for="ethInput">ETH Amount</lable>
+        <input
+          type="number"
+          name="ethInput"
+          step="any"
+          placeholder="0.1"
+          value={ethAmount}
+          onChange={handleChange}
+        ></input>
+        <button onClick={fund}>Fund to Balance</button>
+      </form>
     </>
   )
 }
