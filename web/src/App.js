@@ -28,16 +28,19 @@ function App() {
       setConnectedState("Please install Metamask")
     }
   }
+
   const fund = async () => {
-    try {
-      const txResponse = await contract.fund({
-        value: ethers.utils.parseEther(ethAmount),
-      })
-      await listenerForTxMine(txResponse, provider)
-      console.log("Done")
-      setShowBalance(false)
-    } catch (error) {
-      console.log(error)
+    if (typeof window.ethereum != "undefined") {
+      try {
+        const txResponse = await contract.fund({
+          value: ethers.utils.parseEther(ethAmount),
+        })
+        await listenerForTxMine(txResponse, provider)
+        console.log("Done")
+        setShowBalance(false)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
@@ -46,6 +49,20 @@ function App() {
       const txResponse = await provider.getBalance(contractAddressFundMe)
       setBalance(ethers.utils.formatEther(txResponse.toString()))
       setShowBalance(true)
+    }
+  }
+
+  const withdraw = async () => {
+    if (typeof window.ethereum != "undefined") {
+      try {
+        const txResponse = await contract.withdraw()
+        console.log("Withdrawing the balance...")
+        await listenerForTxMine(txResponse, provider)
+        console.log("Done")
+        setShowBalance(false)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 
@@ -84,6 +101,7 @@ function App() {
         <button onClick={fund}>Fund to Balance</button>
       </form>
       <button onClick={balance}>Get Balance</button>
+      <button onClick={withdraw}>Withdraw Balance</button>
       {showBalance && <p>The balance is {balanceAmount}</p>}
     </>
   )
